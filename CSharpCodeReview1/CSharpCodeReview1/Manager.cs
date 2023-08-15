@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace CSharpCodeReview1
 {
@@ -61,6 +60,7 @@ namespace CSharpCodeReview1
         public bool HasEmployee(Employee employee)
         {
             // todo: complete this function
+            throw new NotImplementedException();
         }
 
 
@@ -90,7 +90,7 @@ namespace CSharpCodeReview1
         /// <returns>Return calculate yearly income after tax.</returns>
         public double CalcYearlyIncome() => ApplyTaxRateToSalary(CalcYearlySalary());
 
-        protected override double ApplyTaxRateToSalary(double salary) => salary * (1 - Boss.TaxRate);
+        protected override double ApplyTaxRateToSalary(double salary) => salary * (1 - Manager.TaxRate);
 
         public override string ToString() => base.ToString() + $"; Employee count={GetEmployees().Count}";
 
