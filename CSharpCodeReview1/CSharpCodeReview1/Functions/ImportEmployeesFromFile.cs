@@ -1,5 +1,6 @@
 ﻿using CSharpCodeReview1.Domain.Models;
 using CSharpCodeReview1.Infrastructure.DataAccess;
+using CSharpCodeReview1.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,19 +10,20 @@ using System.Linq;
 
 namespace CSharpCodeReview1.Functions
 {
-    internal class ImportEmployeesFromFile
+    internal class ImportEmployeesFromFile : IExecutableProcess
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _config;
 
-        internal ImportEmployeesFromFile(ILogger logger, IConfiguration config)
+        public ImportEmployeesFromFile(ILogger<ImportEmployeesFromFile> logger, IConfiguration config)
         {
             _logger = logger;
             _config = config;
         }
 
-        internal void Execute()
+        public void Execute()
         {
+            _logger.LogInformation("Starting execution of Employees Import");
             DbClient dbClient;
             List<Employee> employees = new();
             var filename = _config.GetRequiredSection("EmployeeListFileName").Get<string>() ?? string.Empty;
