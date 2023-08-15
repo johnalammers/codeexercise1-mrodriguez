@@ -10,9 +10,15 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CSharpCodeReview1.Domain.Models\CSharpCodeReview1.Domain.Models.csproj" />
+      <ProjectReference Include="..\CSharpCodeReview1.Infrastructure.DataAccess\CSharpCodeReview1.Infrastructure.DataAccess.csproj" />
     </ItemGroup>
 
     <ItemGroup>

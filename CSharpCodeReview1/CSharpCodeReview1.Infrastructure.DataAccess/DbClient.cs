@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace CSharpCodeReview1
+﻿namespace CSharpCodeReview1.Infrastructure.DataAccess
 {
-    internal class DbClient
+    /// <summary>
+    /// A database client class that is a wrapper for a sql server connection
+    /// </summary>
+    public class DbClient
     {
         private readonly string _connectionString;
 
@@ -11,17 +12,17 @@ namespace CSharpCodeReview1
             this._connectionString = connectionString;
         }
 
-        internal void CloseDbConnection()
+        public void CloseDbConnection()
         {
             throw new NotImplementedException();
         }
 
-        internal void OpenDbConnection()
+        public void OpenDbConnection()
         {
             throw new NotImplementedException();
         }
 
-        internal void RunQuery(string insertSql)
+        public void RunQuery(string insertSql)
         {
             throw new NotImplementedException();
         }
