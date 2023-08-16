@@ -1,6 +1,6 @@
 ﻿using CSharpCodeReview1.Domain;
-using CSharpCodeReview1.Domain.Interfaces;
 using CSharpCodeReview1.Domain.Interfaces.Infrastructure;
+using CSharpCodeReview1.Domain.Interfaces.Services;
 using CSharpCodeReview1.Functions;
 using CSharpCodeReview1.Functions.Interfaces;
 using CSharpCodeReview1.Infrastructure.DataAccess;
@@ -45,6 +45,10 @@ namespace CSharpCodeReview1
 
         public static void ExecuteFunctions(IServiceProvider serviceProvider)
         {
+            // In the possible scenario where we need to execute more processes, here we can handle a list
+            // of delegates, or, if the ThreadPool is needed, tasks, and dispatch them.
+            //
+            // This methods is intended to be used in this specific example.
             var employeesImportFunction = serviceProvider.GetService<IExecutableProcess>();
             employeesImportFunction?.Execute();
         }

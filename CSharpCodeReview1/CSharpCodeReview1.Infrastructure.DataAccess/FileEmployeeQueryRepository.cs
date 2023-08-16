@@ -1,5 +1,5 @@
 ﻿using CSharpCodeReview1.Domain.Interfaces.Infrastructure;
-using CSharpCodeReview1.Domain.Models;
+using CSharpCodeReview1.Domain.Models.Entities;
 using CSharpCodeReview1.Domain.Models.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

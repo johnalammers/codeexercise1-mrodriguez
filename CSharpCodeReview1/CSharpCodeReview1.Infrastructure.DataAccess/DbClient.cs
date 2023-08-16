@@ -29,22 +29,31 @@ namespace CSharpCodeReview1.Infrastructure.DataAccess
 
         /// <summary>
         /// Runs a parameterized SQL query on the connected database within the ongoing transaction.
+        /// If there is an exception during the command execution, a transaction rollback will be called.
         /// </summary>
         /// <param name="query">The SQL query to execute.</param>
         /// <param name="parameters">Optional dictionary of parameter names and values for the query.</param>
         /// <returns>The number of rows affected by the query.</returns>
         public int RunQuery(string query, Dictionary<string, object>? parameters = null)
         {
-            using SqlCommand command = new(query, _connection, _transaction);
-            if (parameters != null)
+            try
             {
-                foreach (var parameter in parameters)
+                using SqlCommand command = new(query, _connection, _transaction);
+                if (parameters != null)
                 {
-                    command.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                    foreach (var parameter in parameters)
+                    {
+                        command.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                    }
                 }
-            }
 
-            return command.ExecuteNonQuery();
+                return command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                RollbackTransaction();
+                throw;
+            }
         }
 
         /// <summary>

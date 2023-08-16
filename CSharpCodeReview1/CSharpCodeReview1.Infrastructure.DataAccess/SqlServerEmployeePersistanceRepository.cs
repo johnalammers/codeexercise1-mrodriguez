@@ -1,5 +1,6 @@
 ﻿using CSharpCodeReview1.Domain.Interfaces.Infrastructure;
-using CSharpCodeReview1.Domain.Models;
+using CSharpCodeReview1.Domain.Models.Entities;
+using CSharpCodeReview1.Domain.Models.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -22,9 +23,9 @@ namespace CSharpCodeReview1.Infrastructure.DataAccess
 
         public int PersistEmployees(IEnumerable<Employee> employees)
         {
-            using var dbClient = new DbClient(_config.GetRequiredSection("DbClientConnString").Get<string>() ?? string.Empty);
             try
             {
+                using var dbClient = new DbClient(_config.GetRequiredSection("DbClientConnString").Get<string>() ?? string.Empty);
                 int rowsAffected = 0;
                 string insertSql =
                     "INSERT INTO employees (firstname, lastname, jobtitle) VALUES (@FirstName, @LastName, @JobTitle)";
@@ -44,11 +45,10 @@ namespace CSharpCodeReview1.Infrastructure.DataAccess
                 dbClient.CommitTransaction();
                 return rowsAffected;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                _logger.LogError("Could not persist employees into database, rolling back changes...", e);
-                dbClient.RollbackTransaction();
-                return 0;
+                _logger.LogError("Could not persist employees into database, rolling back changes...", ex);
+                throw new EmployeePersistanceException("Could not persist employees into database", ex);
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using CSharpCodeReview1.Domain.Models;
+﻿using CSharpCodeReview1.Domain.Models.Entities;
 using CSharpCodeReview1.Domain.Models.Exceptions;
 
 namespace CSharpCodeReview1.Infrastructure.DataAccess

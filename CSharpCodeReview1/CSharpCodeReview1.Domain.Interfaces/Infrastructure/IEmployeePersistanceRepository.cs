@@ -1,4 +1,4 @@
-﻿using CSharpCodeReview1.Domain.Models;
+﻿using CSharpCodeReview1.Domain.Models.Entities;
 
 namespace CSharpCodeReview1.Domain.Interfaces.Infrastructure
 {
