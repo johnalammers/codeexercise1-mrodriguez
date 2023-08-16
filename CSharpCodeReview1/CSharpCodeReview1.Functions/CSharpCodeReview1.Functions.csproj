@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpCodeReview1.Domain.Interfaces\CSharpCodeReview1.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\CSharpCodeReview1.Domain\CSharpCodeReview1.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
