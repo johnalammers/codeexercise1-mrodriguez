@@ -1,5 +1,7 @@
 ﻿using CSharpCodeReview1.Domain.Interfaces.Infrastructure;
 using CSharpCodeReview1.Domain.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace CSharpCodeReview1.Infrastructure.DataAccess
 {
@@ -9,21 +11,45 @@ namespace CSharpCodeReview1.Infrastructure.DataAccess
     /// </summary>
     public class SqlServerEmployeePersistanceRepository : IEmployeePersistanceRepository
     {
-        private readonly DbClient _dbClient;
+        private readonly ILogger<SqlServerEmployeePersistanceRepository> _logger;
+        private readonly IConfiguration _config;
 
-        public SqlServerEmployeePersistanceRepository(DbClient dbClient)
+        public SqlServerEmployeePersistanceRepository(ILogger<SqlServerEmployeePersistanceRepository> logger, IConfiguration config)
         {
-            _dbClient = dbClient;
+            _logger = logger;
+            _config = config;
         }
 
-        public void PersistEmployees(IEnumerable<Employee> employees)
+        public int PersistEmployees(IEnumerable<Employee> employees)
         {
+            using var dbClient = new DbClient(_config.GetRequiredSection("DbClientConnString").Get<string>() ?? string.Empty);
+            try
+            {
+                int rowsAffected = 0;
+                string insertSql =
+                    "INSERT INTO employees (firstname, lastname, jobtitle) VALUES (@FirstName, @LastName, @JobTitle)";
 
-            //string insertSql =
-            //    $"insert into employees (id, firstname, lastname, jobtitle) VALUES " +
-            //    $"({employee.Id}, '{employee.FirstName}', '{employee.LastName}', '{employee.JobTitle}')";
+                foreach (var employee in employees)
+                {
+                    var parameters = new Dictionary<string, object>
+                {
+                    { "@FirstName", employee.FirstName },
+                    { "@LastName", employee.LastName },
+                    { "@JobTitle", employee.JobTitle }
+                };
 
-            //_dbClient.RunQuery(insertSql);
+                    rowsAffected += dbClient.RunQuery(insertSql, parameters);
+                }
+
+                dbClient.CommitTransaction();
+                return rowsAffected;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Could not persist employees into database, rolling back changes...", e);
+                dbClient.RollbackTransaction();
+                return 0;
+            }
         }
     }
 }

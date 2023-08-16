@@ -11,6 +11,7 @@ namespace CSharpCodeReview1.Domain.Interfaces.Infrastructure
         /// Persists a collection of <see cref="Employee"/> entities.
         /// </summary>
         /// <param name="employees">The collection of <see cref="Employee"/> entities to be persisted.</param>
-        void PersistEmployees(IEnumerable<Employee> employees);
+        /// <returns>The number of rows affected by the query.</returns>
+        int PersistEmployees(IEnumerable<Employee> employees);
     }
 }

@@ -29,13 +29,11 @@ namespace CSharpCodeReview1.Infrastructure.DataAccess
 
             try
             {
-                using (StreamReader streamReader = new(filename))
+                using StreamReader streamReader = new(filename);
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        employees.Add(Helpers.ParseRow(line));
-                    }
+                    employees.Add(Helpers.ParseRow(line));
                 }
             }
             catch (EmployeeParsingException ex)

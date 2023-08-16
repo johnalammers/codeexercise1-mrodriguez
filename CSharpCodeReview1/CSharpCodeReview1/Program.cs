@@ -34,6 +34,7 @@ namespace CSharpCodeReview1
                 .AddSingleton<IExecutableProcess, ImportEmployeesFromFile>()
                 .AddSingleton<IEmployeesService, EmployeesService>()
                 .AddSingleton<IEmployeeQueryRepository, FileEmployeeQueryRepository>()
+                .AddSingleton<IEmployeePersistanceRepository, SqlServerEmployeePersistanceRepository>()
                 .BuildServiceProvider();
 
             var logger = serviceProvider.GetService<ILogger<Program>>();
