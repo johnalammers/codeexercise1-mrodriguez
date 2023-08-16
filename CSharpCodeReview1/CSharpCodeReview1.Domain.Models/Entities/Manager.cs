@@ -1,54 +1,61 @@
 namespace CSharpCodeReview1.Domain.Models.Entities
 {
+    /// <summary>
+    /// Represents a manager, inheriting from the <see cref="Person"/> class.
+    /// Manages a group of employees and provides methods to control and interact with them.
+    /// </summary>
     public class Manager : Person
     {
-        private decimal perEmployeeSalaryBonus;
-
-        public HashSet<Employee> Employees { get; }
+        private readonly HashSet<Employee> _employees;
 
         public decimal SalaryBonusPerEmployee { get; set; }
 
-        /// <summary>
-        /// Constructor for Boss class.
-        /// </summary>
-        /// <param name="department">Department under boss control.</param>
         public Manager()
         {
-            Employees = new HashSet<Employee>();
+            _employees = new HashSet<Employee>();
         }
 
+        /// <summary>
+        /// Adds an employee to the manager's group.
+        /// </summary>
+        /// <param name="employee">The employee to be added.</param>
         public void AddEmployee(Employee employee)
         {
-            if (employee != null) Employees.Add(employee);
+            if (employee != null) _employees.Add(employee);
         }
 
         /// <summary>
-        /// Method on remove employee from boss control.
+        /// Removes an employee from the manager's group.
         /// </summary>
-        /// <param name="employee">Employee which is remove from boss control.</param>
+        /// <param name="employee">The employee to be removed.</param>
         public void RemoveEmployee(Employee employee)
         {
-            if (employee != null) Employees.Remove(employee);
+            if (employee != null) _employees.Remove(employee);
         }
 
-
         /// <summary>
-        /// Method which return if employess is under boss control.
+        /// Checks if an employee is under the manager's supervision.
         /// </summary>
-        /// <param name="employee"></param>
-        /// <returns>Return true if employee is found. Else return false.  </returns>
+        /// <param name="employee">The employee to check.</param>
+        /// <returns><c>true</c> if the employee is managed, otherwise <c>false</c>.</returns>
         public bool HasEmployee(Employee employee)
         {
-            return Employees.Contains(employee);
+            return _employees.Contains(employee);
         }
 
         /// <summary>
-        /// Property for get count of employees.
+        /// Gets the count of employees managed by this manager.
         /// </summary>
-        /// <returns>Return count of employees.</returns>
-        public int EmployeeCount => Employees.Count;
+        public int EmployeeCount => _employees.Count;
 
-        public override string ToString() => base.ToString() + $"; Employee count={EmployeeCount}";
+        /// <summary>
+        /// Overrides the base class's ToString method to include employee count.
+        /// </summary>
+        /// <returns>A string representation of the manager.</returns>
+        public override string ToString()
+        {
+            return base.ToString() + $"; Employee count={EmployeeCount}";
+        }
 
         /*
          * These methods will be delegated to decorators

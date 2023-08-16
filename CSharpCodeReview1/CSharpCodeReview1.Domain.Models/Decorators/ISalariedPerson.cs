@@ -5,6 +5,10 @@
     /// </summary>
     public interface ISalariedPerson
     {
-        decimal GetSalary();
+        /// <summary>
+        /// Gets the monthly salary earned by the person.
+        /// </summary>
+        /// <returns>The monthly salary.</returns>
+        decimal GetMonthlySalary();
     }
 }

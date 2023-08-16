@@ -2,6 +2,9 @@
 
 namespace CSharpCodeReview1.Domain.Models.Entities
 {
+    /// <summary>
+    /// Abstract base class representing a person with salary, used for salary calculation and management.
+    /// </summary>
     public abstract class Person : ISalariedPerson
     {
         public int Id { get; set; }
@@ -17,6 +20,12 @@ namespace CSharpCodeReview1.Domain.Models.Entities
         public string LastName { get; set; } = string.Empty;
 
         public decimal MonthlySalary { get; set; }
+
+        /// <summary>
+        /// Gets the salary earned by month.
+        /// </summary>
+        /// <returns>The monthly salary of the person.</returns>
+        public virtual decimal GetMonthlySalary() => MonthlySalary;
 
         public override string ToString() => $"NAME: {FullName}; JOB:{JobTitle}; SALARY: {MonthlySalary}";
 
@@ -36,12 +45,6 @@ namespace CSharpCodeReview1.Domain.Models.Entities
         {
             return HashCode.Combine(Id, FirstName, LastName, BirthDate);
         }
-
-        /// <summary>
-        /// Gets the salary earned by month.
-        /// </summary>
-        /// <returns></returns>
-        public virtual decimal GetSalary() => MonthlySalary;
 
         /*
         * These methods will be delegated to decorators

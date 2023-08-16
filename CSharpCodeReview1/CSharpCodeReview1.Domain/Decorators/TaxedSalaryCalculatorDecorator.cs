@@ -22,9 +22,9 @@ namespace CSharpCodeReview1.Domain.Decorators
         /// Calculates the salary after applying the tax rate.
         /// </summary>
         /// <returns>The salary after tax deduction.</returns>
-        public virtual decimal GetSalary()
+        public virtual decimal GetMonthlySalary()
         {
-            return _person.GetSalary() * (1 - _taxRate);
+            return _person.GetMonthlySalary() * (1 - _taxRate);
         }
     }
 }

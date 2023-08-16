@@ -36,9 +36,9 @@ namespace CSharpCodeReview1.Domain.Decorators
         /// Calculates the salary by adding a bonus for each employee.
         /// </summary>
         /// <returns>The calculated salary with the bonus for employees.</returns>
-        public virtual decimal GetSalary()
+        public virtual decimal GetMonthlySalary()
         {
-            decimal baseSalary = _person.GetSalary();
+            decimal baseSalary = _person.GetMonthlySalary();
             decimal totalBonus = _employeesCount * _salaryBonusPerEmployee;
             return baseSalary + totalBonus;
         }

@@ -19,9 +19,9 @@ namespace CSharpCodeReview1.Domain.Decorators
         /// Calculates the yearly salary by multiplying the monthly salary by 12.
         /// </summary>
         /// <returns>The calculated yearly salary.</returns>
-        public virtual decimal GetSalary()
+        public virtual decimal GetMonthlySalary()
         {
-            return _person.GetSalary() * MONTHS_OF_YEAR;
+            return _person.GetMonthlySalary() * MONTHS_OF_YEAR;
         }
     }
 }
