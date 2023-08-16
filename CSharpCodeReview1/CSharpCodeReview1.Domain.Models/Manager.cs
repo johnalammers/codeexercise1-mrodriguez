@@ -3,7 +3,7 @@ namespace CSharpCodeReview1.Domain.Models
     public class Manager : Employee
     {
         private const int MONTHS_OF_YEAR = 12;
-        private double perEmployeeSalaryBonus;
+        private decimal perEmployeeSalaryBonus;
         private HashSet<Employee> employees;
 
 
@@ -16,18 +16,18 @@ namespace CSharpCodeReview1.Domain.Models
             employees = new HashSet<Employee>();
         }
 
-        public Manager(int id, string firstName, string lastName, string job, DateTime birthDate, double monthlySalary) :
+        public Manager(int id, string firstName, string lastName, string job, DateTime birthDate, decimal monthlySalary) :
             base(id, firstName, lastName, job, birthDate, monthlySalary)
         {
             employees = new HashSet<Employee>();
         }
 
-        public double SalaryBonusPerEmployee
+        public decimal SalaryBonusPerEmployee
         {
             get => perEmployeeSalaryBonus;
             set
             {
-                if (value >= 0.0)
+                if (value >= 0.0M)
                     perEmployeeSalaryBonus = value;
             }
         }
@@ -77,17 +77,17 @@ namespace CSharpCodeReview1.Domain.Models
         /// Method which calculate year salary and subemployee bonus (include boss salary).
         /// </summary>
         /// <returns>Return value of year department salary.</returns>
-        public double CalcYearlySalary() => base.CalcYearlySalary() + CalculateYearlyBonusForEmployees();
+        public decimal CalcYearlySalary() => base.CalcYearlySalary() + CalculateYearlyBonusForEmployees();
 
-        private double CalculateYearlyBonusForEmployees() => EmployeeCount * perEmployeeSalaryBonus * MONTHS_OF_YEAR;
+        private decimal CalculateYearlyBonusForEmployees() => EmployeeCount * perEmployeeSalaryBonus * MONTHS_OF_YEAR;
 
         /// <summary>
         /// Method calculate yearly income of all employees (with VAT).
         /// </summary>
         /// <returns>Return calculate yearly income after tax.</returns>
-        public double CalcYearlyIncome() => ApplyTaxRateToSalary(CalcYearlySalary());
+        public decimal CalcYearlyIncome() => ApplyTaxRateToSalary(CalcYearlySalary());
 
-        protected override double ApplyTaxRateToSalary(double salary) => salary * (1 - Manager.TaxRate);
+        protected override decimal ApplyTaxRateToSalary(decimal salary) => salary * (1 - Manager.TaxRate);
 
         public override string ToString() => base.ToString() + $"; Employee count={GetEmployees().Count}";
 

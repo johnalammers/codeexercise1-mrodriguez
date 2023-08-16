@@ -18,6 +18,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CSharpCodeReview1.Domain.Models\CSharpCodeReview1.Domain.Models.csproj" />
+      <ProjectReference Include="..\CSharpCodeReview1.Domain\CSharpCodeReview1.Domain.csproj" />
+      <ProjectReference Include="..\CSharpCodeReview1.Functions\CSharpCodeReview1.Functions.csproj" />
       <ProjectReference Include="..\CSharpCodeReview1.Infrastructure.DataAccess\CSharpCodeReview1.Infrastructure.DataAccess.csproj" />
     </ItemGroup>
 
@@ -25,10 +27,6 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Extensions\" />
     </ItemGroup>
 
 </Project>

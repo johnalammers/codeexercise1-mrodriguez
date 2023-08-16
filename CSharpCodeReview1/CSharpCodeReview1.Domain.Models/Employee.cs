@@ -33,15 +33,15 @@ namespace CSharpCodeReview1.Domain.Models
 
         public string JobTitle { get; set; }
 
-        public double MonthlySalary { get; set; }
+        public decimal MonthlySalary { get; set; }
 
-        public static double TaxRate => 0.21;
+        public static decimal TaxRate => 0.21M;
 
         public string FullName { get; private set; }
 
         private static int nextID = 0;
 
-        public Employee(int id, string firstName, string lastName, string jobTitle, DateTime birthDate, double monthlySalary)
+        public Employee(int id, string firstName, string lastName, string jobTitle, DateTime birthDate, decimal monthlySalary)
         {
             Id = id;
             FirstName = firstName;
@@ -72,7 +72,7 @@ namespace CSharpCodeReview1.Domain.Models
         /// based on attribute monthlySalaryCZK
         /// </summary>
         /// <returns>Sum of all the 12 salaries</returns>
-        public double CalcYearlySalary()
+        public decimal CalcYearlySalary()
         {
             return MonthlySalary * 12;
         }
@@ -82,7 +82,7 @@ namespace CSharpCodeReview1.Domain.Models
         /// </summary>
         /// <param name="salary">Salary of employee</param>
         /// <returns>Salary after to taxation</returns>
-        protected virtual double ApplyTaxRateToSalary(double salary)
+        protected virtual decimal ApplyTaxRateToSalary(decimal salary)
         {
             return salary * (1 - TaxRate);
         }

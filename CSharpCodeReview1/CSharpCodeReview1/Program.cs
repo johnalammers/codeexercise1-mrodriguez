@@ -1,8 +1,13 @@
-﻿using CSharpCodeReview1.Functions;
-using CSharpCodeReview1.Interfaces;
+﻿using CSharpCodeReview1.Domain;
+using CSharpCodeReview1.Domain.Interfaces;
+using CSharpCodeReview1.Domain.Interfaces.Infrastructure;
+using CSharpCodeReview1.Functions;
+using CSharpCodeReview1.Functions.Interfaces;
+using CSharpCodeReview1.Infrastructure.DataAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 
 namespace CSharpCodeReview1
@@ -25,14 +30,20 @@ namespace CSharpCodeReview1
                     builder.AddFilter("System", LogLevel.Warning);
                     builder.AddConsole();
                 })
-                .AddSingleton<IConfiguration>(config)
+                .AddSingleton(config)
                 .AddSingleton<IExecutableProcess, ImportEmployeesFromFile>()
+                .AddSingleton<IEmployeesService, EmployeesService>()
+                .AddSingleton<IEmployeeQueryRepository, FileEmployeeQueryRepository>()
                 .BuildServiceProvider();
 
             var logger = serviceProvider.GetService<ILogger<Program>>();
             logger?.LogInformation("Process startup finished successfuly, starting function execution.");
 
-            // Execute process
+            ExecuteFunctions(serviceProvider);
+        }
+
+        public static void ExecuteFunctions(IServiceProvider serviceProvider)
+        {
             var employeesImportFunction = serviceProvider.GetService<IExecutableProcess>();
             employeesImportFunction?.Execute();
         }
